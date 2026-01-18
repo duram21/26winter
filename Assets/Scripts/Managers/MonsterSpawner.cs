@@ -12,7 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     public float spawnRangeY = 4f;    // Y축 범위
     
     private float spawnTimer = 0f;
-    private int currentMonsterCount = 0;
+    public int currentMonsterCount = 0;
     
     void Update()
     {
@@ -35,11 +35,16 @@ public class MonsterSpawner : MonoBehaviour
         Vector2 spawnPosition = new Vector2(randomX, randomY);
         
         // 몬스터 생성
-        GameObject monster = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
-        currentMonsterCount++;
+        GameObject obj = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+        Monster monster = obj.GetComponent<Monster>();
         
         // 몬스터가 죽을 때 카운트 감소하도록 설정
+        if(monster)
+        {
+            monster.spawner = this;
+        }
 
+        currentMonsterCount++;
     }
     
     // 몬스터가 죽었을 때 호출될 함수

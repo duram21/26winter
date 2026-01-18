@@ -8,4 +8,14 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Warrior_Black_Copy
   m_Controller: {fileID: 9100000, guid: b96f062c1d073496fb335d14ea81c2ec, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: a32f303056c574c5d891a8f63e457b9c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d1720c4a2822c4779b180105bc7a31f7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0b0f703f09c7447ffb63c769de69ce9e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d53d1c4b55e10449893db7d54472fe38, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2a0793daf975d448bab3d0b6f498a50c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: beccb27e9776e44a6ad3c3f881b01270, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: de15c08cca00248e4a35390f33bde7d8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f0892cb69a2434df68d63c89d8e054ab, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 35e36ed033f8d477c9b5b1a275e7e96e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8a3bcdc3ac1804373a38a72c06a9f4c9, type: 2}

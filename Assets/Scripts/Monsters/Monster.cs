@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    [HideInInspector]
+    [Header("Spawner Info")]
     public MonsterSpawner spawner;
     
     [Header("스탯")]
