@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class UpgradeItem : MonoBehaviour
 {
+    [Header("업그레이드 데이터")]
+    public UpgradeData upgradeData;  // ← Inspector에서 연결!
+    
     [Header("UI 참조")]
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI levelText;
@@ -11,57 +14,89 @@ public class UpgradeItem : MonoBehaviour
     public TextMeshProUGUI buttonText;
     public Button upgradeButton;
     
-    private System.Action onUpgradeCallback;
-    private int currentCost;
-    
-    public void Setup(string title, string levelInfo, string description, int cost, System.Action onUpgrade)
+    void Start()
     {
-        titleText.text = title;
-        levelText.text = levelInfo;
-        descText.text = description;
-        buttonText.text = $"{cost}G";
-        
-        currentCost = cost;
-        onUpgradeCallback = onUpgrade;
+        if (upgradeData == null)
+        {
+            Debug.LogWarning($"{gameObject.name}에 UpgradeData가 연결되지 않았습니다!");
+            gameObject.SetActive(false);
+            return;
+        }
         
         // 버튼 이벤트 연결
         upgradeButton.onClick.RemoveAllListeners();
-        upgradeButton.onClick.AddListener(OnButtonClick);
+        upgradeButton.onClick.AddListener(OnUpgradeClick);
         
-        UpdateButtonState();
+        Refresh();
     }
     
     void Update()
     {
+        if (upgradeData != null && gameObject.activeSelf)
+        {
+            UpdateButtonState();
+        }
+    }
+    
+    public void Refresh()
+    {
+        if (upgradeData == null) return;
+        
+        // 최대 레벨이면 숨기기
+        if (upgradeData.IsMaxLevel())
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        
+        gameObject.SetActive(true);
+        
+        // 텍스트 업데이트
+        titleText.text = upgradeData.upgradeName;
+        levelText.text = upgradeData.GetLevelText();
+        descText.text = upgradeData.GetDescriptionText();
+        
+        int cost = upgradeData.GetNextCost();
+        buttonText.text = $"{cost}G";
+        
         UpdateButtonState();
     }
     
     void UpdateButtonState()
     {
-        if (GameManager.Instance == null) return;
+        if (upgradeData == null) return;
         
-        // 골드 부족 체크
-        bool canAfford = GameManager.Instance.currentGold >= currentCost;
-        
+        bool canAfford = upgradeData.CanUpgrade();
         upgradeButton.interactable = canAfford;
         
-        // 색상 변경
+        // 버튼 색상
         Image buttonImage = upgradeButton.GetComponent<Image>();
         if (buttonImage != null)
         {
             buttonImage.color = canAfford ? 
-                new Color(0.3f, 0.69f, 0.31f) :  // 초록 (살 수 있음)
-                new Color(0.3f, 0.3f, 0.3f);     // 회색 (골드 부족)
+                new Color(0.3f, 0.69f, 0.31f) :  // 초록
+                new Color(0.3f, 0.3f, 0.3f);     // 회색
         }
         
+        // 텍스트 색상
         buttonText.color = canAfford ? Color.white : Color.red;
     }
     
-    void OnButtonClick()
+    void OnUpgradeClick()
     {
-        if (onUpgradeCallback != null)
+        if (upgradeData == null) return;
+        
+        if (upgradeData.TryUpgrade())
         {
-            onUpgradeCallback.Invoke();
+            // 업그레이드 성공!
+            Refresh();
+            
+            // 다른 항목들도 새로고침
+            UpgradePanel panel = GetComponentInParent<UpgradePanel>();
+            if (panel != null)
+            {
+                panel.RefreshAllUpgrades();
+            }
         }
     }
 }

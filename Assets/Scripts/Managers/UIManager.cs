@@ -27,6 +27,9 @@ public class UIManager : MonoBehaviour
     public Color selectedColor = new Color(1f, 0.84f, 0f);  // 금색
     public Color normalColor = new Color(0.7f, 0.7f, 0.7f); // 회색
     
+    private GameObject currentPanel;   // 현재 열린 패널
+    private Button currentButton;      // 현재 선택된 버튼
+    
     void Awake()
     {
         if (Instance == null)
@@ -37,28 +40,19 @@ public class UIManager : MonoBehaviour
     {
         // 버튼 이벤트 연결
         if (upgradeButton != null)
-            upgradeButton.onClick.AddListener(() => ShowPanel(upgradePanel, upgradeButton));
+            upgradeButton.onClick.AddListener(() => TogglePanel(upgradePanel, upgradeButton));
         
         if (shopButton != null)
-            shopButton.onClick.AddListener(() => ShowPanel(shopPanel, shopButton));
+            shopButton.onClick.AddListener(() => TogglePanel(shopPanel, shopButton));
         
         if (equipmentButton != null)
-            equipmentButton.onClick.AddListener(() => ShowPanel(equipmentPanel, equipmentButton));
+            equipmentButton.onClick.AddListener(() => TogglePanel(equipmentPanel, equipmentButton));
         
         if (settingsButton != null)
-            settingsButton.onClick.AddListener(() => ShowPanel(settingsPanel, settingsButton));
+            settingsButton.onClick.AddListener(() => TogglePanel(settingsPanel, settingsButton));
         
         // 초기: 모든 패널 끄기
-        if (upgradePanel != null) upgradePanel.SetActive(false);
-        if (shopPanel != null) shopPanel.SetActive(false);
-        if (equipmentPanel != null) equipmentPanel.SetActive(false);
-        if (settingsPanel != null) settingsPanel.SetActive(false);
-        
-        // 모든 버튼 회색으로
-        if (upgradeButton != null) SetButtonColor(upgradeButton, normalColor);
-        if (shopButton != null) SetButtonColor(shopButton, normalColor);
-        if (equipmentButton != null) SetButtonColor(equipmentButton, normalColor);
-        if (settingsButton != null) SetButtonColor(settingsButton, normalColor);
+        CloseAllPanels();
     }
     
     void Update()
@@ -81,41 +75,75 @@ public class UIManager : MonoBehaviour
         }
     }
     
-    public void ShowPanel(GameObject panel, Button button)
+    // 토글 방식!
+    public void TogglePanel(GameObject panel, Button button)
     {
-        // 모든 패널 끄기
+        if (panel == null || button == null)
+            return;
+        
+        // 같은 버튼을 다시 클릭한 경우
+        if (currentPanel == panel && panel.activeSelf)
+        {
+            // 패널 끄기
+            panel.SetActive(false);
+            SetButtonColor(button, normalColor);
+            
+            currentPanel = null;
+            currentButton = null;
+        }
+        else
+        {
+            // 다른 버튼을 클릭한 경우 (또는 처음 클릭)
+            
+            // 1. 모든 패널 끄기
+            CloseAllPanels();
+            
+            // 2. 선택한 패널만 켜기
+            panel.SetActive(true);
+            SetButtonColor(button, selectedColor);
+            
+            // 3. 현재 상태 저장
+            currentPanel = panel;
+            currentButton = button;
+            
+            // 4. 패널이 활성화되면 새로고침
+            RefreshPanel(panel);
+        }
+    }
+    
+    // 모든 패널 끄기
+    void CloseAllPanels()
+    {
         if (upgradePanel != null) upgradePanel.SetActive(false);
         if (shopPanel != null) shopPanel.SetActive(false);
         if (equipmentPanel != null) equipmentPanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(false);
         
-        // 모든 버튼 색상 리셋
         if (upgradeButton != null) SetButtonColor(upgradeButton, normalColor);
         if (shopButton != null) SetButtonColor(shopButton, normalColor);
         if (equipmentButton != null) SetButtonColor(equipmentButton, normalColor);
         if (settingsButton != null) SetButtonColor(settingsButton, normalColor);
-        
-        // 선택한 패널만 켜기
-        if (panel != null)
-        {
-            panel.SetActive(true);
-            
-            // 패널이 활성화되면 새로고침
-            if (panel == upgradePanel)
-            {
-                UpgradePanel upgradeScript = panel.GetComponent<UpgradePanel>();
-                if (upgradeScript != null)
-                    upgradeScript.RefreshAllUpgrades();
-            }
-        }
-        
-        // 선택한 버튼 강조
-        if (button != null)
-        {
-            SetButtonColor(button, selectedColor);
-        }
     }
     
+    // 패널 새로고침
+    void RefreshPanel(GameObject panel)
+    {
+        if (panel == upgradePanel)
+        {
+            UpgradePanel upgradeScript = panel.GetComponent<UpgradePanel>();
+            if (upgradeScript != null)
+                upgradeScript.RefreshAllUpgrades();
+        }
+        // 나중에 다른 패널들도 추가
+        // else if (panel == shopPanel)
+        // {
+        //     ShopPanel shopScript = panel.GetComponent<ShopPanel>();
+        //     if (shopScript != null)
+        //         shopScript.RefreshShop();
+        // }
+    }
+    
+    // 버튼 색상 변경
     void SetButtonColor(Button button, Color color)
     {
         ColorBlock colors = button.colors;

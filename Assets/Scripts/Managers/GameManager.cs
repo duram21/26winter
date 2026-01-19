@@ -44,6 +44,13 @@ public class GameManager : MonoBehaviour
     // ============================================
     // 아군 개별 업그레이드 레벨 (유닛별)
     // ============================================
+    [Header("아군 카운트 레벨 (배치 가능 수)")]
+    public int warriorCountLevel = 0;  // 검사 배치 가능 수
+    public int archerCountLevel = 0;   // 궁수 배치 가능 수
+    public int knightCountLevel = 0;   // 기사 배치 가능 수
+    public int mageCountLevel = 0;     // 마법사 배치 가능 수
+
+
     [Header("⬆️ 아군 공격력 레벨 (유닛별)")]
     public int warriorAttackLevel = 0;     // 검사 공격력 레벨
     public int archerAttackLevel = 0;      // 궁수 공격력 레벨
@@ -244,6 +251,29 @@ public class GameManager : MonoBehaviour
                 break;
         }
         return false;
+    }
+
+    public int GetMaxWarriorCount()
+    {
+        return 1 + warriorCountLevel;  // 기본 1명 + 업그레이드
+    }
+
+    public int GetMaxArcherCount()
+    {
+        if (!archerUnlocked) return 0;
+        return 1 + archerCountLevel;
+    }
+
+    public int GetMaxKnightCount()
+    {
+        if (!knightUnlocked) return 0;
+        return 1 + knightCountLevel;
+    }
+
+    public int GetMaxMageCount()
+    {
+        if (!mageUnlocked) return 0;
+        return 1 + mageCountLevel;
     }
     
     // ============================================
