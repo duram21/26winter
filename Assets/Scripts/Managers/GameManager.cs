@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public int archerCountLevel = 0;   // 궁수 배치 가능 수
     public int knightCountLevel = 0;   // 기사 배치 가능 수
     public int mageCountLevel = 0;     // 마법사 배치 가능 수
+    public int monkCountLevel = 0;  // ← 추가!
 
 
     [Header("⬆️ 아군 공격력 레벨 (유닛별)")]
@@ -56,12 +57,14 @@ public class GameManager : MonoBehaviour
     public int archerAttackLevel = 0;      // 궁수 공격력 레벨
     public int knightAttackLevel = 0;      // 기사 공격력 레벨
     public int mageAttackLevel = 0;        // 마법사 공격력 레벨
+    public int monkAttackLevel = 0;
     
     [Header("⬆️ 아군 이동속도 레벨 (유닛별)")]
     public int warriorSpeedLevel = 0;      // 검사 이동속도 레벨
     public int archerSpeedLevel = 0;       // 궁수 이동속도 레벨
     public int knightSpeedLevel = 0;       // 기사 이동속도 레벨
     public int mageSpeedLevel = 0;         // 마법사 이동속도 레벨
+    public int monkSpeedLevel = 0;
     
     // ============================================
     // 공통 업그레이드 레벨

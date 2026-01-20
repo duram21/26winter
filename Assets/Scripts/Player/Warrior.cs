@@ -3,59 +3,81 @@ using UnityEngine;
 public class Warrior : MonoBehaviour
 {
     [Header("스탯")]
-    public float moveSpeed = 3f;           // 이동 속도
-    public float attackDamage = 5f;        // 공격력
-    public float attackSpeed = 1f;         // 공격 속도 (초당 공격 횟수)
-    public float attackRange = 0.5f;       // 공격 범위
+    public float moveSpeed = 3f;
+    public float attackDamage = 5f;
+    public float attackSpeed = 1f;
+    public float attackRange = 0.5f;
     
     [Header("설정")]
-    public float detectionRange = 20f;     // 몬스터 탐지 범위
+    public float detectionRange = 20f;
     
-    // 내부 변수
-    public Monster currentTarget;          // 현재 타겟
-    private float attackTimer = 1f;        // 공격 쿨타임 타이머
-    private Animator anim;                 // 애니메이터 변수 추가
-
+    public Monster currentTarget;
+    private float attackTimer = 1f;
+    private Animator anim;
+    private Rigidbody2D rb;
+    
     void Start()
     {
-        // 시작할 때 애니메이터 컴포넌트를 가져옵니다.
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        
+        if (rb == null)
+        {
+            Debug.LogError($"{name}에 Rigidbody2D가 없습니다!");
+        }
+        else
+        {
+            Debug.Log($"{name} Rigidbody2D 확인 완료!");
+            Debug.Log($"Body Type: {rb.bodyType}");
+            Debug.Log($"Constraints: {rb.constraints}");
+        }
     }
     
     void Update()
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Warrior_Attack1_Black")) 
         {
-            // 공격 중일 때는 이동 애니메이션도 꺼줍니다.
             anim.SetBool("isMoving", false);
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
             return; 
         }
-        // 1. 타겟이 없거나 죽었으면 새로운 타겟 찾기
+        
         if (currentTarget == null)
         {
             FindNearestMonster();
-            // 타겟이 아예 없을 때는 이동 애니메이션을 끕니다.
-            if (currentTarget == null) anim.SetBool("isMoving", false);
+            
+            if (currentTarget == null)
+            {
+                anim.SetBool("isMoving", false);
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector2.zero;
+                }
+            }
+            else
+            {
+                Debug.Log($"{name} 타겟 발견: {currentTarget.name}");  // ← 디버그
+            }
         }
         
-        // 2. 타겟이 있으면 행동
         if (currentTarget != null)
         {
             float distanceToTarget = Vector2.Distance(transform.position, currentTarget.transform.position);
             
-            // 공격 범위 안이면 공격
+            
             if (distanceToTarget <= attackRange)
             {
                 AttackTarget();
             }
-            // 공격 범위 밖이면 이동
             else
             {
                 MoveToTarget();
             }
         }
         
-        // 3. 공격 타이머 감소
         if (attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;
@@ -65,6 +87,8 @@ public class Warrior : MonoBehaviour
     void FindNearestMonster()
     {
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        
+        
         if (monsters.Length == 0)
         {
             currentTarget = null;
@@ -90,29 +114,42 @@ public class Warrior : MonoBehaviour
     {
         if (currentTarget == null) return;
         
-        // [애니메이션] 이동 중이므로 isMoving을 true로 설정
         anim.SetBool("isMoving", true);
-
-        Vector2 direction = (currentTarget.transform.position - transform.position).normalized;
-        transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
         
-        // 방향에 따라 스프라이트 뒤집기
-        if (direction.x < 0) transform.localScale = new Vector3(-1, 1, 1);
-        else if (direction.x > 0) transform.localScale = new Vector3(1, 1, 1);
+        Vector2 direction = (currentTarget.transform.position - transform.position).normalized;
+        
+        
+        if (rb != null)
+        {
+            Vector2 targetVelocity = direction * moveSpeed;
+            rb.linearVelocity = targetVelocity;
+            
+        }
+        else
+        {
+            transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
+        }
+        
+        if (direction.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+        else if (direction.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
     }
     
     void AttackTarget()
     {
         if (currentTarget == null) return;
-
-        // [애니메이션] 공격 사거리 안이므로 이동 애니메이션은 끕니다.
+        
         anim.SetBool("isMoving", false);
+        
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
         
         if (attackTimer <= 0)
         {
-            // [애니메이션] 공격 트리거 실행
             anim.SetTrigger("attack");
-
             currentTarget.TakeDamage(attackDamage);
             attackTimer = 1f / attackSpeed;
         }

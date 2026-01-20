@@ -138,15 +138,5 @@ public class WarriorSpawner : MonoBehaviour
         return spawnPoint.position + new Vector3(randomOffset.x, randomOffset.y, 0f);
     }
     
-    void OnGUI()
-    {
-        GUIStyle style = new GUIStyle();
-        style.fontSize = 20;
-        style.normal.textColor = Color.white;
-        
-        GUI.Label(new Rect(10, 10, 300, 30), $"검사: {warriors.Count}명", style);
-        GUI.Label(new Rect(10, 40, 300, 30), $"궁수: {archers.Count}명", style);
-        GUI.Label(new Rect(10, 70, 300, 30), $"기사: {knights.Count}명", style);
-        GUI.Label(new Rect(10, 100, 300, 30), $"마법사: {mages.Count}명", style);
-    }
+
 }
