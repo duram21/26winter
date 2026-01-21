@@ -65,6 +65,8 @@ public class UpgradeData : ScriptableObject
                 return GameManager.Instance.goldBonusLevel;
             
             // 적 관련
+            case UpgradeType.SpawnLevel:
+                return GameManager.Instance.spawnLevelLevel;
             case UpgradeType.MaxEnemyCount:
                 return GameManager.Instance.maxEnemyCountLevel;
             case UpgradeType.SpawnSpeed:
@@ -181,6 +183,10 @@ public class UpgradeData : ScriptableObject
                 GameManager.Instance.maxEnemyCountLevel++;
                 break;
             
+            case UpgradeType.SpawnLevel:
+                GameManager.Instance.spawnLevelLevel++;
+                break;
+            
             case UpgradeType.SpawnSpeed:
                 GameManager.Instance.spawnSpeedLevel++;
                 break;
@@ -223,6 +229,7 @@ public enum UpgradeType
     GoldBonus,
     
     // 적 관련
+    SpawnLevel,
     MaxEnemyCount,
     SpawnSpeed,
     KillGoldBonus

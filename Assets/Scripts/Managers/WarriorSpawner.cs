@@ -10,6 +10,8 @@ public class WarriorSpawner : MonoBehaviour
     public GameObject archerPrefab;
     public GameObject knightPrefab;
     public GameObject magePrefab;
+    public GameObject monkPrefab;
+
     
     [Header("스폰 위치")]
     public Transform spawnPoint;
@@ -23,6 +25,8 @@ public class WarriorSpawner : MonoBehaviour
     private List<GameObject> archers = new List<GameObject>();
     private List<GameObject> knights = new List<GameObject>();
     private List<GameObject> mages = new List<GameObject>();
+    private List<GameObject> monks = new List<GameObject>();
+
     
     void Awake()
     {
@@ -125,6 +129,29 @@ public class WarriorSpawner : MonoBehaviour
         mages.Add(mage);
         
         Debug.Log($"마법사 스폰! 현재 총 {mages.Count}명");
+    }
+
+    public void SpawnMonk()
+    {
+        if (monkPrefab == null)
+        {
+            Debug.LogWarning("Monk Prefab이 없습니다!");
+            return;
+        }
+        
+        Vector3 spawnPos = GetRandomSpawnPosition();
+        GameObject monk = Instantiate(monkPrefab, spawnPos, Quaternion.identity);
+        monk.name = $"Monk_{monks.Count + 1}";
+        
+        // 부모 설정!
+        if (allyParent != null)
+        {
+            monk.transform.SetParent(allyParent);
+        }
+        
+        monks.Add(monk);
+        
+        Debug.Log($"마법사 스폰! 현재 총 {monks.Count}명");
     }
     
     Vector3 GetRandomSpawnPosition()

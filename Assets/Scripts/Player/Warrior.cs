@@ -20,17 +20,6 @@ public class Warrior : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        
-        if (rb == null)
-        {
-            Debug.LogError($"{name}에 Rigidbody2D가 없습니다!");
-        }
-        else
-        {
-            Debug.Log($"{name} Rigidbody2D 확인 완료!");
-            Debug.Log($"Body Type: {rb.bodyType}");
-            Debug.Log($"Constraints: {rb.constraints}");
-        }
     }
     
     void Update()
@@ -38,10 +27,7 @@ public class Warrior : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Warrior_Attack1_Black")) 
         {
             anim.SetBool("isMoving", false);
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.zero;
-            }
+            if (rb != null) rb.linearVelocity = Vector2.zero;
             return; 
         }
         
@@ -52,21 +38,13 @@ public class Warrior : MonoBehaviour
             if (currentTarget == null)
             {
                 anim.SetBool("isMoving", false);
-                if (rb != null)
-                {
-                    rb.linearVelocity = Vector2.zero;
-                }
-            }
-            else
-            {
-                Debug.Log($"{name} 타겟 발견: {currentTarget.name}");  // ← 디버그
+                if (rb != null) rb.linearVelocity = Vector2.zero;
             }
         }
         
         if (currentTarget != null)
         {
             float distanceToTarget = Vector2.Distance(transform.position, currentTarget.transform.position);
-            
             
             if (distanceToTarget <= attackRange)
             {
@@ -87,8 +65,6 @@ public class Warrior : MonoBehaviour
     void FindNearestMonster()
     {
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-        
-        
         if (monsters.Length == 0)
         {
             currentTarget = null;
@@ -118,12 +94,10 @@ public class Warrior : MonoBehaviour
         
         Vector2 direction = (currentTarget.transform.position - transform.position).normalized;
         
-        
+        // velocity 사용 (부드러움!)
         if (rb != null)
         {
-            Vector2 targetVelocity = direction * moveSpeed;
-            rb.linearVelocity = targetVelocity;
-            
+            rb.linearVelocity = direction * moveSpeed;
         }
         else
         {
@@ -142,6 +116,7 @@ public class Warrior : MonoBehaviour
         
         anim.SetBool("isMoving", false);
         
+        // 멈추기
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;

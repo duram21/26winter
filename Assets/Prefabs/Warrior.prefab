@@ -106,7 +106,7 @@ MonoBehaviour:
   moveSpeed: 3
   attackDamage: 5
   attackSpeed: 1
-  attackRange: 0.5
+  attackRange: 1
   detectionRange: 20
   currentTarget: {fileID: 0}
 --- !u!95 &2274244891348772333
@@ -154,7 +154,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4

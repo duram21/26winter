@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UpgradeItem : MonoBehaviour
 {
     [Header("업그레이드 데이터")]
-    public UpgradeData upgradeData;  // ← Inspector에서 연결!
+    public UpgradeData upgradeData;
     
     [Header("UI 참조")]
     public TextMeshProUGUI titleText;
@@ -23,7 +23,6 @@ public class UpgradeItem : MonoBehaviour
             return;
         }
         
-        // 버튼 이벤트 연결
         upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(OnUpgradeClick);
         
@@ -42,22 +41,27 @@ public class UpgradeItem : MonoBehaviour
     {
         if (upgradeData == null) return;
         
-        // 최대 레벨이면 숨기기
-        if (upgradeData.IsMaxLevel())
-        {
-            gameObject.SetActive(false);
-            return;
-        }
-        
+        // 항상 표시! (숨기지 않음)
         gameObject.SetActive(true);
         
         // 텍스트 업데이트
         titleText.text = upgradeData.upgradeName;
-        levelText.text = upgradeData.GetLevelText();
-        descText.text = upgradeData.GetDescriptionText();
         
-        int cost = upgradeData.GetNextCost();
-        buttonText.text = $"{cost}G";
+        // 최대 레벨 여부에 따라 다르게 표시
+        if (upgradeData.IsMaxLevel())
+        {
+            levelText.text = "MAX";  // 또는 "최대 레벨"
+            descText.text = upgradeData.description;
+            buttonText.text = "최대 레벨";
+        }
+        else
+        {
+            levelText.text = upgradeData.GetLevelText();
+            descText.text = upgradeData.GetDescriptionText();
+            
+            int cost = upgradeData.GetNextCost();
+            buttonText.text = $"{cost}G";
+        }
         
         UpdateButtonState();
     }
@@ -66,19 +70,33 @@ public class UpgradeItem : MonoBehaviour
     {
         if (upgradeData == null) return;
         
+        // 최대 레벨이면 버튼 비활성화
+        if (upgradeData.IsMaxLevel())
+        {
+            upgradeButton.interactable = false;
+            
+            Image buttonImage = upgradeButton.GetComponent<Image>();
+            if (buttonImage != null)
+            {
+                buttonImage.color = new Color(0.2f, 0.5f, 0.2f);  // 어두운 초록 (완료 느낌)
+            }
+            
+            buttonText.color = Color.white;
+            return;
+        }
+        
+        // 일반 상태
         bool canAfford = upgradeData.CanUpgrade();
         upgradeButton.interactable = canAfford;
         
-        // 버튼 색상
-        Image buttonImage = upgradeButton.GetComponent<Image>();
-        if (buttonImage != null)
+        Image buttonImage2 = upgradeButton.GetComponent<Image>();
+        if (buttonImage2 != null)
         {
-            buttonImage.color = canAfford ? 
+            buttonImage2.color = canAfford ? 
                 new Color(0.3f, 0.69f, 0.31f) :  // 초록
                 new Color(0.3f, 0.3f, 0.3f);     // 회색
         }
         
-        // 텍스트 색상
         buttonText.color = canAfford ? Color.white : Color.red;
     }
     
@@ -88,10 +106,8 @@ public class UpgradeItem : MonoBehaviour
         
         if (upgradeData.TryUpgrade())
         {
-            // 업그레이드 성공!
             Refresh();
             
-            // 다른 항목들도 새로고침
             UpgradePanel panel = GetComponentInParent<UpgradePanel>();
             if (panel != null)
             {

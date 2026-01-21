@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520ac48945162a34094776a7b61bd9a6, type: 3}
+  m_Name: SpawnLevel
+  m_EditorClassIdentifier: 
+  upgradeName: "\uC801 \uC18C\uD658 \uB808\uBCA8"
+  description: "\uC801 \uCC98\uCE58 \uC2DC \uC5BB\uB294 \uACE8\uB4DC \uD68D\uB4DD\uB7C9\uC774
+    \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  icon: {fileID: 0}
+  maxLevel: 10
+  costs: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  valuePerLevel: 2
+  valueUnit: "\uB370\uBBF8\uC9C0"
+  upgradeType: 7
+  targetWarriorType: None

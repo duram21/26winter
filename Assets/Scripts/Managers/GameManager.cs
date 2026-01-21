@@ -19,11 +19,13 @@ public class GameManager : MonoBehaviour
     public bool archerUnlocked = false;    // 궁수 (500G)
     public bool knightUnlocked = false;    // 기사 (1,000G)
     public bool mageUnlocked = false;      // 마법사 (2,000G)
-    
+    public bool monkUnlocked = false;
+
     [Header("🛡️ 아군 해금 비용")]
     public int archerUnlockCost = 500;
     public int knightUnlockCost = 1000;
     public int mageUnlockCost = 2000;
+    public int monkUnlockCost = 3000;
     
     // ============================================
     // 적 해금 상태
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour
     // 아군 개별 업그레이드 레벨 (유닛별)
     // ============================================
     [Header("아군 카운트 레벨 (배치 가능 수)")]
-    public int warriorCountLevel = 0;  // 검사 배치 가능 수
+    public int warriorCountLevel = 1;  // 검사 배치 가능 수
     public int archerCountLevel = 0;   // 궁수 배치 가능 수
     public int knightCountLevel = 0;   // 기사 배치 가능 수
     public int mageCountLevel = 0;     // 마법사 배치 가능 수
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
     public int goldBonusLevel = 0;         // 골드 획득량 증가 (최대 Lv.15)
     
     [Header("⬆️ 적 관련 업그레이드")]
+    public int spawnLevelLevel = 0;        // 적 소환 레벨
     public int maxEnemyCountLevel = 0;     // 최대 적 배치 수 (최대 Lv.10)
     public int spawnSpeedLevel = 0;        // 적 스폰 주기 감소 (최대 Lv.8)
     public int killGoldBonusLevel = 0;     // 적 처치 골드 보너스 (최대 Lv.10)
@@ -445,6 +448,99 @@ public class GameManager : MonoBehaviour
         
         return false;
     }
+
+        // ========== 해금 함수들 (추가!) ==========
+    public bool UnlockArcher()
+    {
+        int cost = 500;
+        
+        // 이미 해금되어 있으면 실패
+        if (archerUnlocked)
+        {
+            Debug.Log("궁수는 이미 해금되었습니다!");
+            return false;
+        }
+        
+        // 골드가 부족하면 실패
+        if (currentGold < cost)
+        {
+            Debug.Log($"골드가 부족합니다! (필요: {cost}G, 보유: {currentGold}G)");
+            return false;
+        }
+        
+        // 해금 성공!
+        currentGold -= cost;
+        archerUnlocked = true;
+        Debug.Log($"궁수 해금 성공! (잔여 골드: {currentGold}G)");
+        return true;
+    }
+    
+    public bool UnlockMonk()
+    {
+        int cost = 700;
+        
+        if (monkUnlocked)
+        {
+            Debug.Log("Monk는 이미 해금되었습니다!");
+            return false;
+        }
+        
+        if (currentGold < cost)
+        {
+            Debug.Log($"골드가 부족합니다! (필요: {cost}G, 보유: {currentGold}G)");
+            return false;
+        }
+        
+        currentGold -= cost;
+        monkUnlocked = true;
+        Debug.Log($"Monk 해금 성공! (잔여 골드: {currentGold}G)");
+        return true;
+    }
+    
+    public bool UnlockKnight()
+    {
+        int cost = 1000;
+        
+        if (knightUnlocked)
+        {
+            Debug.Log("기사는 이미 해금되었습니다!");
+            return false;
+        }
+        
+        if (currentGold < cost)
+        {
+            Debug.Log($"골드가 부족합니다! (필요: {cost}G, 보유: {currentGold}G)");
+            return false;
+        }
+        
+        currentGold -= cost;
+        knightUnlocked = true;
+        Debug.Log($"기사 해금 성공! (잔여 골드: {currentGold}G)");
+        return true;
+    }
+    
+    public bool UnlockMage()
+    {
+        int cost = 1500;
+        
+        if (mageUnlocked)
+        {
+            Debug.Log("마법사는 이미 해금되었습니다!");
+            return false;
+        }
+        
+        if (currentGold < cost)
+        {
+            Debug.Log($"골드가 부족합니다! (필요: {cost}G, 보유: {currentGold}G)");
+            return false;
+        }
+        
+        currentGold -= cost;
+        mageUnlocked = true;
+        Debug.Log($"마법사 해금 성공! (잔여 골드: {currentGold}G)");
+        return true;
+    }
+    // ========================================
     
     // ============================================
     // 통계
@@ -505,6 +601,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("게임 저장 완료!");
     }
+
+
     
     public void LoadGame()
     {
