@@ -18,17 +18,13 @@ public class MonsterSpawner : MonoBehaviour
     private float spawnTimer = 0f;
     public int currentMonsterCount = 0;
     
+
     void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
+    
     
     void Update()
     {
