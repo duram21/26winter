@@ -73,7 +73,7 @@ public class Warrior : BaseAlly
         else if (directionX > 0)
             transform.localScale = new Vector3(1, 1, 1);
     }
-    
+
     protected override void OnDrawGizmosSelected()
     {
         base.OnDrawGizmosSelected();
