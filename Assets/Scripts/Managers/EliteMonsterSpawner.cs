@@ -84,6 +84,14 @@ public class EliteMonsterSpawner : MonoBehaviour
         {
             GameObject eliteMonster = Instantiate(eliteMonsterPrefab, spawnPoint.position, spawnPoint.rotation);
             Debug.Log("엘리트 몬스터 소환!");
+
+            // 모든 아군이 엘리트 몬스터 때리도록 구현해볼까 ?
+            if (eliteMonster != null && AllyManager.Instance != null)
+            {
+                Debug.Log("동료들이 앨리트 몬스터를 때립니다");
+
+                AllyManager.Instance.SetAllTargets(eliteMonster.transform);
+            }
         }
         else if (eliteMonsterPrefab != null)
         {
@@ -98,9 +106,6 @@ public class EliteMonsterSpawner : MonoBehaviour
         }
 
         UpdateUI();
-
-        // 모든 아군이 엘리트 몬스터 때리도록 구현해볼까 ?
-        
 
     }
     private void UpdateUI()

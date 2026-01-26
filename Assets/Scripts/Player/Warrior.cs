@@ -1,120 +1,45 @@
 using UnityEngine;
 
-public class Warrior : MonoBehaviour
+public class Warrior : BaseAlly
 {
-    [Header("스탯")]
-    public float moveSpeed = 3f;
+    [Header("전사 고유 설정")]
     public float attackDamage = 5f;
-    public float attackSpeed = 1f;
-    public float attackRange = 0.5f;
     
-    [Header("설정")]
-    public float detectionRange = 20f;
-    
-    public Monster currentTarget;
-    private float attackTimer = 1f;
-    private Animator anim;
-    private Rigidbody2D rb;
-    
-    void Start()
+    protected override void Start()
     {
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        base.Start(); // BaseAlly의 Start 호출
+        
+        // 전사 고유 초기화
+        attackRange = 0.5f; // 근접 공격
+        detectionRange = 20f;
     }
     
-    void Update()
+    protected override void Update()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Warrior_Attack1_Black")) 
+        // 공격 애니메이션 중에는 멈춤
+        if (animator != null && animator.GetCurrentAnimatorStateInfo(0).IsName("Warrior_Attack1_Black"))
         {
-            anim.SetBool("isMoving", false);
+            if (animator != null) animator.SetBool("isMoving", false);
             if (rb != null) rb.linearVelocity = Vector2.zero;
-            return; 
-        }
-        
-        if (currentTarget == null)
-        {
-            FindNearestMonster();
-            
-            if (currentTarget == null)
-            {
-                anim.SetBool("isMoving", false);
-                if (rb != null) rb.linearVelocity = Vector2.zero;
-            }
-        }
-        
-        if (currentTarget != null)
-        {
-            float distanceToTarget = Vector2.Distance(transform.position, currentTarget.transform.position);
-            
-            if (distanceToTarget <= attackRange)
-            {
-                AttackTarget();
-            }
-            else
-            {
-                MoveToTarget();
-            }
-        }
-        
-        if (attackTimer > 0)
-        {
-            attackTimer -= Time.deltaTime;
-        }
-    }
-    
-    void FindNearestMonster()
-    {
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-        if (monsters.Length == 0)
-        {
-            currentTarget = null;
             return;
         }
         
-        float nearestDistance = Mathf.Infinity;
-        Monster nearestMonster = null;
-        
-        foreach (GameObject monsterObj in monsters)
-        {
-            float distance = Vector2.Distance(transform.position, monsterObj.transform.position);
-            if (distance < nearestDistance && distance <= detectionRange)
-            {
-                nearestDistance = distance;
-                nearestMonster = monsterObj.GetComponent<Monster>();
-            }
-        }
-        currentTarget = nearestMonster;
+        base.Update(); // BaseAlly의 Update 호출
     }
     
-    void MoveToTarget()
+    protected override void Attack()
     {
-        if (currentTarget == null) return;
+        if (Time.time < lastAttackTime + attackCooldown)
+            return;
         
-        anim.SetBool("isMoving", true);
+        if (targetEnemy == null)
+            return;
         
-        Vector2 direction = (currentTarget.transform.position - transform.position).normalized;
+        if (isAttacking)
+            return;
         
-        // velocity 사용 (부드러움!)
-        if (rb != null)
-        {
-            rb.linearVelocity = direction * moveSpeed;
-        }
-        else
-        {
-            transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
-        }
-        
-        if (direction.x < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
-        else if (direction.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-    }
-    
-    void AttackTarget()
-    {
-        if (currentTarget == null) return;
-        
-        anim.SetBool("isMoving", false);
+        isAttacking = true;
+        lastAttackTime = Time.time;
         
         // 멈추기
         if (rb != null)
@@ -122,18 +47,37 @@ public class Warrior : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
         
-        if (attackTimer <= 0)
+        if (animator != null)
         {
-            anim.SetTrigger("attack");
-            currentTarget.TakeDamage(attackDamage);
-            attackTimer = 1f / attackSpeed;
+            animator.SetBool("isMoving", false);
+            animator.SetTrigger("attack");
         }
+        
+        // 데미지 적용
+        BaseMonster monster = targetEnemy.GetComponent<BaseMonster>();
+        if (monster != null)
+        {
+            monster.TakeDamage(attackDamage);
+        }
+        
+        // 공격 속도에 따라 쿨다운 설정
+        float attackTimer = 1f / (attackCooldown > 0 ? 1f / attackCooldown : 1f);
+        Invoke(nameof(EndAttack), attackTimer);
     }
     
-    void OnDrawGizmosSelected()
+    protected override void FlipSprite(float directionX)
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        // Warrior는 localScale로 방향 전환
+        if (directionX < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+        else if (directionX > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    protected override void OnDrawGizmosSelected()
+    {
+        base.OnDrawGizmosSelected();
+        
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
