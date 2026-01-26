@@ -54,7 +54,7 @@ public class Arrow : MonoBehaviour
         {
             hasHit = true;
             
-            Monster monster = collision.GetComponent<Monster>();
+            BaseMonster monster = collision.GetComponent<BaseMonster>();
             if (monster != null)
             {
                 monster.TakeDamage(damage);

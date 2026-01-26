@@ -34,7 +34,7 @@ public class HealEffect : MonoBehaviour
             return;
         }
         
-        Monster monster = target.GetComponent<Monster>();
+        BaseMonster monster = target.GetComponent<BaseMonster>();
         if (monster != null)
         {
             monster.TakeDamage(damage);

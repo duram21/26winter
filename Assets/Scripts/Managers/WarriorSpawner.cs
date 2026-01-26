@@ -60,6 +60,7 @@ public class WarriorSpawner : MonoBehaviour
         warriors.Add(warrior);
         
         Debug.Log($"검사 스폰! 현재 총 {warriors.Count}명");
+        AllyManager.Instance.RegisterAlly(warrior.GetComponent<BaseAlly>());
     }
     
     public void SpawnArcher()
@@ -83,6 +84,8 @@ public class WarriorSpawner : MonoBehaviour
         archers.Add(archer);
         
         Debug.Log($"궁수 스폰! 현재 총 {archers.Count}명");
+        AllyManager.Instance.RegisterAlly(archer.GetComponent<BaseAlly>());
+
     }
     
     public void SpawnKnight()
@@ -152,6 +155,8 @@ public class WarriorSpawner : MonoBehaviour
         monks.Add(monk);
         
         Debug.Log($"마법사 스폰! 현재 총 {monks.Count}명");
+        AllyManager.Instance.RegisterAlly(monk.GetComponent<BaseAlly>());
+
     }
     
     Vector3 GetRandomSpawnPosition()

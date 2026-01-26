@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6341811549347037378}
   - component: {fileID: 2912552902316959887}
   - component: {fileID: 2435659803143875972}
-  - component: {fileID: 4878925546054664902}
   - component: {fileID: 8228884005123860264}
+  - component: {fileID: -6276193966932430707}
   m_Layer: 0
   m_Name: EliteMonster
   m_TagString: Monster
@@ -112,23 +112,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4878925546054664902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6372858542020399035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1caeef698eec074fbe1b3c0f9feb2c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
-  maxHealth: 105.8
-  goldReward: 5
-  moveSpeed: 0.5
-  isDead: 0
 --- !u!70 &8228884005123860264
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -166,3 +149,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.4, y: 0.56}
   m_Direction: 0
+--- !u!114 &-6276193966932430707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372858542020399035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29f350ae624604c940263abef7119d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
+  maxHealth: 10
+  goldReward: 5
+  moveSpeed: 0.5
+  isDead: 0
+  rewardPrefab: {fileID: 1693928528261155514, guid: 262b55e090c642f428b3f740e3ee02d8, type: 3}
+  minRewardCount: 3
+  maxRewardCount: 7
+  dropRadius: 2
+  dropForce: 3
