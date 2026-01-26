@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class EliteMonster : MonoBehaviour
 {
     [Header("Spawner Info")]
     public MonsterSpawner spawner;
