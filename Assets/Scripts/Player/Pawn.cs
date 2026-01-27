@@ -8,7 +8,8 @@ public class Pawn : MonoBehaviour
 {
     [Header("이동 설정")]
     public float moveSpeed = 5f;
-    
+
+
     [Header("Animator Override Controllers")]
     [Tooltip("ItemType enum 순서대로 배열에 할당 (None, Axe, Meat, Gold, Knife, Wood, Hammer, Pickaxe)")]
     public AnimatorOverrideController[] itemControllers;
@@ -52,7 +53,6 @@ public class Pawn : MonoBehaviour
         Hammer = 6,
         Pickaxe = 7
     }
-    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -232,14 +232,14 @@ public class Pawn : MonoBehaviour
             }
         }
         // 스페이스바를 떼면 상호작용 취소
-        else if (Input.GetKeyUp(KeyCode.Space))
+       /* else if (Input.GetKeyUp(KeyCode.Space))
         {
             if (isInteracting)
             {
                 CancelInteraction();
                 Debug.Log("상호작용이 취소되었습니다!");
             }
-        }
+        } */
     }
     
     void TryStartInteraction()
