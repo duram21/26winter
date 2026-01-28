@@ -209,7 +209,7 @@ public class Pawn : MonoBehaviour
         {
             Debug.LogWarning($"잘못된 아이템 인덱스: {index}");
             return;
-        }
+        }   
         
         if (itemControllers[index] == null)
         {
@@ -219,6 +219,16 @@ public class Pawn : MonoBehaviour
         
         animator.runtimeAnimatorController = itemControllers[index];
         Debug.Log($"아이템 변경: {newItem} (인덱스: {index})");
+        
+        // 상호 작용 시간을 위해 추가. (나무 베는건 오래, 양 죽이는건 짧게..)
+        if(newItem == ItemType.Knife)
+        {
+            interactionDuration = 0.3f;
+        }
+        if(newItem == ItemType.Axe)
+        {
+            interactionDuration = 1.0f;
+        }
     }
     
     void HandleInteraction()

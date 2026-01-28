@@ -13,6 +13,8 @@ public class CollectibleItem : MonoBehaviour
     [Header("자동 습득")]
     public float pickupRange = 1.5f; // 자동 습득 범위
     public float moveSpeed = 3f; // 플레이어에게 이동하는 속도
+    public float dropTime = 0.5f; // 몇 초 뒤부터 먹을 건지 
+    public float dropTimer = 0f;
     
     [Header("물리")]
     public bool usePhysics = true; // 물리 효과 사용
@@ -48,6 +50,7 @@ public class CollectibleItem : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        dropTimer = 0f;
         
         // 물리 저항 설정
         if (rb != null && usePhysics)
@@ -83,12 +86,14 @@ public class CollectibleItem : MonoBehaviour
         // 플레이어와의 거리
         float distance = Vector2.Distance(transform.position, player.position);
         
+        dropTimer += Time.deltaTime;
         // 범위 내에 들어오면 플레이어에게 이동
-        if (distance <= pickupRange)
+        if (distance <= pickupRange && dropTimer >= dropTime)
         {
             isMovingToPlayer = true;
             MoveToPlayer();
         }
+
     }
     
     void MoveToPlayer()
@@ -127,7 +132,7 @@ public class CollectibleItem : MonoBehaviour
         if (hasBeenPickedUp) return;
         
         // 플레이어와 충돌하면 습득
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && dropTimer >= dropTime)
         {
             Pickup(other.gameObject);
         }
