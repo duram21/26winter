@@ -37,6 +37,8 @@ public class SheepObject : MonoBehaviour, IInteractable
     private float idleTimer = 0f;
     private float idleTime = 0f;
     
+
+    
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -204,6 +206,7 @@ public class SheepObject : MonoBehaviour, IInteractable
     
     public void OnInteractionStart(Pawn pawn)
     {
+        
         // 즉시 공격!
         TakeDamage();
         
