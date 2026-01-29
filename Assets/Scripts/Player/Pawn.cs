@@ -15,7 +15,7 @@ public class Pawn : MonoBehaviour
     public AnimatorOverrideController[] itemControllers;
     
     [Header("상호작용 설정")]
-    public float interactionDuration = 1f;
+    public float interactionDuration = 0f;
     public bool autoDetectAnimationLength = true;
     
     [Header("지속 상호작용 설정")]
@@ -75,6 +75,11 @@ public class Pawn : MonoBehaviour
     
     void Update()
     {
+        if(IsInDialogue())
+        {
+            return;
+        }
+
         // 지속 상호작용 중일 때
         if (isInteracting && currentInteractTarget != null)
         {
@@ -121,6 +126,12 @@ public class Pawn : MonoBehaviour
     
     void FixedUpdate()
     {
+        if(IsInDialogue())
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+    
         if (isInteracting)
         {
             rb.linearVelocity = Vector2.zero;
@@ -350,6 +361,17 @@ public class Pawn : MonoBehaviour
         }
         
         return 1f;
+    }
+
+
+    bool IsInDialogue()
+    {
+        // DialogueManager가 있고 대화 활성화 중이면 true
+        if (DialogueManager.Instance != null)
+        {
+            return DialogueManager.Instance.IsDialogueActive();
+        }
+        return false;
     }
     
     /// <summary>
