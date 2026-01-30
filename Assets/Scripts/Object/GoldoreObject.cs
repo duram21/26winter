@@ -32,11 +32,19 @@ public class GoldOreObject : MonoBehaviour, IInteractable
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private bool isBeingInteracted = false;
+
+    // 빛나는 효과
+    private Animator animator;
+    private float glowTime = 10f;
+    private float glowTimer = 10f;
+
+
     
     void Start()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         
         if (spriteRenderer != null)
         {
@@ -45,6 +53,31 @@ public class GoldOreObject : MonoBehaviour, IInteractable
         
         // Tag 설정
         gameObject.tag = "GoldOre";
+    }
+
+    void Update()
+    {
+        if(glowTimer >= glowTime)
+        {
+            glowGoldOre();
+        }
+        
+        glowTimer += Time.deltaTime;
+    }
+
+    public void glowGoldOre()
+    {
+        float minGlowTime = 2f;
+        float maxGlowTime = 5f;
+
+        float nextGlowTime = Random.Range(minGlowTime, maxGlowTime);
+    
+        if(animator != null)
+        {
+            animator.SetTrigger("isGlowing");
+        }
+        glowTimer = 0f;
+        glowTime = nextGlowTime;
     }
     
     public bool CanInteract(Pawn pawn)

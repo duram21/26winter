@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GoleOre 3
+  m_Controller: {fileID: 9100000, guid: 1cc2527d71d3a4f2f82e78018a3b9d89, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e52bb1f81d8b64b449f12824a557fd7e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c6836c23317fd47a68fd9759a1e47591, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2b07cd30bc9fe483e997e66c656da2a5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2506d52b07ec0454ba8e9269d734bfd4, type: 2}

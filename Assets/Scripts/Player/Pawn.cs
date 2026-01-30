@@ -40,8 +40,7 @@ public class Pawn : MonoBehaviour
     
     // 지속 상호작용 대상
     private IInteractable currentInteractTarget; // 현재 상호작용 중인 대상
-    private GameObject nearbyInteractable; // 근처의 상호작용 가능한 오브젝트
-    
+    private GameObject nearbyInteractable; // 근처의 상호작용 가능한 오브젝트    
     public enum ItemType
     {
         None = 0,

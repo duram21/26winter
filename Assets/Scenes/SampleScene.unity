@@ -714,10 +714,10 @@ RectTransform:
   - {fileID: 97855020}
   m_Father: {fileID: 88861590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 230.42499, y: -21.1}
-  m_SizeDelta: {x: 146.95, y: 42.2}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &125891524
 GameObject:
@@ -1021,12 +1021,12 @@ Transform:
   m_GameObject: {fileID: 150631898}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.72274, y: 2.05679, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 349488143}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 317933824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &150631900
 MonoBehaviour:
@@ -1215,6 +1215,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5819187721638677955, guid: 83e4a3ca75976884eaced3b5e8fd3031, type: 3}
   m_PrefabInstance: {fileID: 1275602595}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &317933823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 317933824}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &317933824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317933823}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.72274, y: -2.05679, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 931557137}
+  - {fileID: 989908270}
+  - {fileID: 884635368}
+  - {fileID: 150631899}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &332140815 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 469478458601988027, guid: ad425606f258248428f88e8c49551800, type: 3}
@@ -2108,6 +2143,7 @@ GameObject:
   - component: {fileID: 449944055}
   - component: {fileID: 449944054}
   - component: {fileID: 449944056}
+  - component: {fileID: 449944057}
   m_Layer: 0
   m_Name: Gold Stone 2
   m_TagString: Untagged
@@ -2199,7 +2235,7 @@ Animator:
   m_GameObject: {fileID: 449944053}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fab56da52a1ec47eab30b4e70af2df00, type: 2}
+  m_Controller: {fileID: 22100000, guid: 152fb237365a44e48a69323dad0f4ae1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2211,6 +2247,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &449944057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449944053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6395a2b064b616645851d0f81bccb7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldOreObject
+  maxHealth: 3
+  requiredTool: 7
+  interactionTimePerHit: 2
+  itemPrefab: {fileID: 7135271800990587152, guid: f041aa9adf5a0cf4da826bc738dba826, type: 3}
+  dropItemType: 2
+  minGoldCount: 3
+  maxGoldCount: 8
+  dropRadius: 1.5
+  dropForce: 3
+  hitEffectPrefab: {fileID: 0}
+  showProgressBar: 1
+  damageColor: {r: 1, g: 0.8, b: 0, a: 1}
+  currentHealth: 0
+  currentProgress: 0
 --- !u!1001 &477221266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2590,6 +2652,7 @@ GameObject:
   - component: {fileID: 511026067}
   - component: {fileID: 511026066}
   - component: {fileID: 511026068}
+  - component: {fileID: 511026069}
   m_Layer: 0
   m_Name: Gold Stone 3
   m_TagString: Untagged
@@ -2681,7 +2744,7 @@ Animator:
   m_GameObject: {fileID: 511026065}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bf26faa01835c4f06bb49d0c9ad9b49f, type: 2}
+  m_Controller: {fileID: 22100000, guid: a82145580b8a0304fa6503cb1415f674, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2693,6 +2756,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &511026069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511026065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6395a2b064b616645851d0f81bccb7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldOreObject
+  maxHealth: 3
+  requiredTool: 7
+  interactionTimePerHit: 2
+  itemPrefab: {fileID: 7135271800990587152, guid: f041aa9adf5a0cf4da826bc738dba826, type: 3}
+  dropItemType: 2
+  minGoldCount: 3
+  maxGoldCount: 8
+  dropRadius: 1.5
+  dropForce: 3
+  hitEffectPrefab: {fileID: 0}
+  showProgressBar: 1
+  damageColor: {r: 1, g: 0.8, b: 0, a: 1}
+  currentHealth: 0
+  currentProgress: 0
 --- !u!1001 &515760865
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4010,6 +4099,7 @@ GameObject:
   - component: {fileID: 691757526}
   - component: {fileID: 691757525}
   - component: {fileID: 691757527}
+  - component: {fileID: 691757528}
   m_Layer: 0
   m_Name: Gold Stone 5
   m_TagString: Untagged
@@ -4101,7 +4191,7 @@ Animator:
   m_GameObject: {fileID: 691757524}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3bc8a45500d36404396b531e4d6310fa, type: 2}
+  m_Controller: {fileID: 22100000, guid: e30eee69104ade84680c5774f2de7160, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4113,6 +4203,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &691757528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691757524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6395a2b064b616645851d0f81bccb7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldOreObject
+  maxHealth: 3
+  requiredTool: 7
+  interactionTimePerHit: 2
+  itemPrefab: {fileID: 7135271800990587152, guid: f041aa9adf5a0cf4da826bc738dba826, type: 3}
+  dropItemType: 2
+  minGoldCount: 3
+  maxGoldCount: 8
+  dropRadius: 1.5
+  dropForce: 3
+  hitEffectPrefab: {fileID: 0}
+  showProgressBar: 1
+  damageColor: {r: 1, g: 0.8, b: 0, a: 1}
+  currentHealth: 0
+  currentProgress: 0
 --- !u!1 &713722413
 GameObject:
   m_ObjectHideFlags: 0
@@ -5312,12 +5428,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884635366}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2564979, y: 0.16253659, z: -0.01069916}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.979238, y: 2.2193267, z: -0.01069916}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 317933824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &899875094
 GameObject:
@@ -5602,12 +5718,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931557136}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.685774, y: -1.0023057, z: -0.044929393}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.408514, y: 1.0544844, z: -0.044929393}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 317933824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &931557138
 MonoBehaviour:
@@ -5779,6 +5895,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 090a8012054eb09498c5635a084e9fc6, type: 3}
+--- !u!1 &989908269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 989908270}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &989908270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989908269}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 317933824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &993227991
 GameObject:
   m_ObjectHideFlags: 0
@@ -6258,6 +6405,7 @@ GameObject:
   - component: {fileID: 1176277670}
   - component: {fileID: 1176277669}
   - component: {fileID: 1176277671}
+  - component: {fileID: 1176277672}
   m_Layer: 0
   m_Name: Gold Stone 4
   m_TagString: Untagged
@@ -6349,7 +6497,7 @@ Animator:
   m_GameObject: {fileID: 1176277668}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a9dfafd5325c14a28a8cb319b1f6fad8, type: 2}
+  m_Controller: {fileID: 22100000, guid: 06e21d9bba4670643b55cbad11f14107, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6361,6 +6509,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1176277672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176277668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6395a2b064b616645851d0f81bccb7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldOreObject
+  maxHealth: 3
+  requiredTool: 7
+  interactionTimePerHit: 2
+  itemPrefab: {fileID: 7135271800990587152, guid: f041aa9adf5a0cf4da826bc738dba826, type: 3}
+  dropItemType: 2
+  minGoldCount: 3
+  maxGoldCount: 8
+  dropRadius: 1.5
+  dropForce: 3
+  hitEffectPrefab: {fileID: 0}
+  showProgressBar: 1
+  damageColor: {r: 1, g: 0.8, b: 0, a: 1}
+  currentHealth: 0
+  currentProgress: 0
 --- !u!224 &1185887043 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6732794354908087262, guid: d999bf56044e1734aa30f87515bfbc2a, type: 3}
@@ -8758,10 +8932,10 @@ RectTransform:
   - {fileID: 446563975}
   m_Father: {fileID: 88861590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 73.475, y: -21.1}
-  m_SizeDelta: {x: 146.95, y: 42.2}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1638000673
 MonoBehaviour:
@@ -9715,6 +9889,7 @@ GameObject:
   - component: {fileID: 1747812789}
   - component: {fileID: 1747812788}
   - component: {fileID: 1747812790}
+  - component: {fileID: 1747812791}
   m_Layer: 0
   m_Name: Gold Stone 6
   m_TagString: Untagged
@@ -9806,7 +9981,7 @@ Animator:
   m_GameObject: {fileID: 1747812787}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4940b72bf7a7a4b549e99e009fb549d3, type: 2}
+  m_Controller: {fileID: 22100000, guid: 0190a46a119a0ae419a9b1b0b4f881ed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -9818,6 +9993,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1747812791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747812787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6395a2b064b616645851d0f81bccb7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldOreObject
+  maxHealth: 3
+  requiredTool: 7
+  interactionTimePerHit: 2
+  itemPrefab: {fileID: 7135271800990587152, guid: f041aa9adf5a0cf4da826bc738dba826, type: 3}
+  dropItemType: 2
+  minGoldCount: 3
+  maxGoldCount: 8
+  dropRadius: 1.5
+  dropForce: 3
+  hitEffectPrefab: {fileID: 0}
+  showProgressBar: 1
+  damageColor: {r: 1, g: 0.8, b: 0, a: 1}
+  currentHealth: 0
+  currentProgress: 0
 --- !u!1 &1858707167
 GameObject:
   m_ObjectHideFlags: 0
@@ -24652,7 +24853,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1872079394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24672,7 +24873,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 33.700012}
+  m_AnchoredPosition: {x: 0, y: 33.700073}
   m_SizeDelta: {x: -300, y: 345.2}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1872079395
@@ -28197,12 +28398,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 619394802}
   - {fileID: 1925722727}
-  - {fileID: 931557137}
   - {fileID: 411227711}
   - {fileID: 187658799}
   - {fileID: 2022750744}
-  - {fileID: 884635368}
-  - {fileID: 150631899}
   - {fileID: 1918950201}
   - {fileID: 2303572768750772976}
   - {fileID: 567225458}
@@ -28219,3 +28417,4 @@ SceneRoots:
   - {fileID: 1263807454}
   - {fileID: 1729115794}
   - {fileID: 867550934}
+  - {fileID: 317933824}
