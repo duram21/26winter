@@ -23,7 +23,11 @@ public class DialogueManager : MonoBehaviour
     
     [Header("오디오")]
     public AudioSource audioSource; // 음성 재생용
-    
+
+    [Header("선택지 UI")]
+    public DialogueChoiceUI choiceUI; // 선택지 UI
+    public QuestListUI questListUI; // 퀘스트 목록 UI
+
     [Header("상태")]
     [SerializeField] private bool isDialogueActive = false;
     [SerializeField] private bool isTyping = false;
@@ -289,5 +293,17 @@ public class DialogueManager : MonoBehaviour
     public bool IsDialogueActive()
     {
         return isDialogueActive;
+    }
+
+    /// <summary>
+    /// 선택지 UI가 활성화되어 있는지
+    /// </summary>
+    public bool IsChoiceActive()
+    {
+        if (choiceUI != null && choiceUI.IsActive())
+            return true;
+        if (questListUI != null && questListUI.IsActive())
+            return true;
+        return false;
     }
 }
